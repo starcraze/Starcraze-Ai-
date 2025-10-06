@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Prompt Starcraze</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+      :root, body[data-theme='starcraze'] {
+        --color-bg-dark: #111827; /* Blue-Gray Dark */
+        --color-bg-pane: #1F2937; /* Blue-Gray Pane */
+        --color-primary: #3B82F6; /* Blue */
+        --color-secondary: #9CA3AF; /* Gray */
+        --color-accent: #EFF6FF; /* Light Blue */
+        --color-text-primary: #F9FAFB;
+        --color-text-secondary: #9CA3AF;
+        --color-border: rgba(59, 130, 246, 0.2);
+        --color-border-hover: rgba(59, 130, 246, 0.5);
+        --color-shadow: rgba(59, 130, 246, 0.15);
+        --color-shadow-heavy: rgba(59, 130, 246, 0.3);
+        --color-input-bg: rgba(17, 24, 39, 0.5);
+      }
+      
+      body[data-theme='story'] {
+        --color-bg-dark: #1F121A;
+        --color-bg-pane: #2E1A27;
+        --color-primary: #EC4899; /* Pink */
+        --color-secondary: #B9A7B3;
+        --color-accent: #FCE7F3;
+        --color-text-primary: #FDF2F8;
+        --color-text-secondary: #B9A7B3;
+        --color-border: rgba(236, 72, 153, 0.2);
+        --color-border-hover: rgba(236, 72, 153, 0.5);
+        --color-shadow: rgba(236, 72, 153, 0.15);
+        --color-shadow-heavy: rgba(236, 72, 153, 0.3);
+        --color-input-bg: rgba(31, 18, 26, 0.5);
+      }
+
+      body[data-theme='studio'] {
+        --color-bg-dark: #3f1212; /* Deeper, more saturated red */
+        --color-bg-pane: #5c1a1a; /* Richer red pane background */
+        --color-primary: #f87171; /* Brighter, more vibrant red (red-400) */
+        --color-secondary: #d6bcbc; /* Lighter secondary text for contrast */
+        --color-accent: #fee2e2;
+        --color-text-primary: #fff; /* Pure white for max contrast */
+        --color-text-secondary: #d6bcbc;
+        --color-border: rgba(248, 113, 113, 0.25);
+        --color-border-hover: rgba(248, 113, 113, 0.6);
+        --color-shadow: rgba(248, 113, 113, 0.15);
+        --color-shadow-heavy: rgba(248, 113, 113, 0.3);
+        --color-input-bg: rgba(63, 18, 18, 0.6);
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--color-bg-dark);
+        color: var(--color-text-primary);
+        background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80"%3E%3Crect fill="%23121812" width="80" height="80"%3E%3C/rect%3E%3Cg fill-opacity="0.03"%3E%3Ccircle fill="%23EAE8E1" cx="40" cy="40" r="60"/%3E%3C/g%3E%3C/svg%3E');
+        transition: background-color 0.5s ease;
+      }
+      
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Lora', serif;
+      }
+      
+      #root {
+        animation: fadeIn 1s ease-out;
+      }
+      
+      @keyframes popover {
+        from { opacity: 0; transform: translateY(-5px) scale(0.95); }
+        to { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      .animate-popover {
+        animation: popover 0.2s ease-out forwards;
+      }
+
+      @keyframes simple-fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      .animate-simple-fade-in {
+        animation: simple-fade-in 0.3s ease-out forwards;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .content-pane {
+        background-color: var(--color-bg-pane);
+        border: 1px solid var(--color-border);
+        box-shadow: 0 8px 32px 0 var(--color-shadow);
+        transition: background-color 0.5s ease, border-color 0.5s ease;
+      }
+
+      *:focus-visible {
+        outline: 2px solid var(--color-primary) !important;
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+      
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--color-bg-dark);
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: var(--color-border-hover);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--color-primary);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.22.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-transparent">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
